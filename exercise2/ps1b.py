@@ -28,7 +28,7 @@ month=0
 current_savings=0
 #monthly
 while(current_savings<costDownPayment):
-    if month%6==0 and month !=0:
+    if month%6==0 and month!=0:
         annual_salary+=annual_salary*semi_annual_raise
         monthly_savings=(annual_salary/12)*portion_saved
     current_savings+=current_savings*r/12

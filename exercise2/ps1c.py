@@ -11,7 +11,6 @@ month_initial=36
 epsilon=100
 current_savings=0
 
-
 annual_salary_static=float(input("Enter the starting salary: "))
 
 step_search=0
@@ -20,9 +19,7 @@ low=0
 high=1
 guess=(low+high)/2
 
-
 rate_month=((r+1)**(1/12))-1
-
 
 annual_salary=annual_salary_static
 monthly_savings=(annual_salary/12)

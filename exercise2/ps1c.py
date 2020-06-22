@@ -44,7 +44,6 @@ else:
         for month in range (month_initial):
             if month%6==0 and month!=0:
                 annual_salary+=annual_salary*semi_annual_raise
-                #monthly_savings=(annual_salary/12)*(1+rate_month)
                 monthly_savings=(annual_salary/12)*guess
             current_savings+=current_savings*rate_month
             current_savings+=monthly_savings

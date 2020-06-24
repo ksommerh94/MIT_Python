@@ -32,8 +32,6 @@ def load_words():
     print("  ", len(wordlist), "words loaded.")
     return wordlist
 
-
-
 def choose_word(wordlist):
     """
     wordlist (list): list of words (strings)
@@ -48,7 +46,7 @@ def choose_word(wordlist):
 
 # Load the list of words into the variable wordlist
 # so that it can be accessed from anywhere in the program
-wordlist = load_words()
+#wordlist = load_words()
 
 
 def is_word_guessed(secret_word, letters_guessed):
@@ -60,6 +58,17 @@ def is_word_guessed(secret_word, letters_guessed):
     returns: boolean, True if all the letters of secret_word are in letters_guessed;
       False otherwise
     '''
+    flag = len(secret_word)
+    for lg in letters_guessed:
+        if lg in secret_word:
+            flag=flag-secret_word.count(lg)
+    if flag==0:
+        return 1
+    else:
+        return 0
+
+
+
     # FILL IN YOUR CODE HERE AND DELETE "pass"
     pass
 
@@ -201,8 +210,11 @@ if __name__ == "__main__":
     # To test part 2, comment out the pass line above and
     # uncomment the following two lines.
 
-    secret_word = choose_word(wordlist)
-    hangman(secret_word)
+    #secret_word = choose_word(wordlist)
+
+    #hangman(secret_word)
+    l=['a','b','c']
+    print(is_word_guessed('accb',l))
 
 ###############
 

@@ -99,7 +99,14 @@ def get_available_letters(letters_guessed):
     returns: string (of letters), comprised of letters that represents which letters have not
       yet been guessed.
     '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
+    abcMissing=[]
+    abc=string.ascii_lowercase
+    for i in abc:
+        if i not in letters_guessed:
+            abcMissing.append(i)
+
+    sabcMissing=" ".join(abcMissing)
+    return (sabcMissing)
     pass
 
 
@@ -221,8 +228,11 @@ if __name__ == "__main__":
 
     #hangman(secret_word)
     secret_word = 'apple'
-    letters_guessed = ['p', 'i', 'k', 'e', 'r', 'a']
-    print(get_guessed_word(secret_word, letters_guessed) )
+    letters_guessed = ['e', 'i', 'k', 'p', 'r', 's']
+
+    #print(is_word_guessed(secret_word, letters_guessed) )
+    #print(get_guessed_word(secret_word, letters_guessed) )
+    print (get_available_letters(letters_guessed))
 
 ###############
 

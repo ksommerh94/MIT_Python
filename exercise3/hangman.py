@@ -48,7 +48,7 @@ def choose_word(wordlist):
 # so that it can be accessed from anywhere in the program
 #wordlist = load_words()
 
-
+#listo!
 def is_word_guessed(secret_word, letters_guessed):
     '''
     secret_word: string, the word the user is guessing; assumes all letters are
@@ -63,9 +63,9 @@ def is_word_guessed(secret_word, letters_guessed):
         if lg in secret_word:
             flag=flag-secret_word.count(lg)
     if flag==0:
-        return 1
+        return True
     else:
-        return 0
+        return False
 
 
 
@@ -73,7 +73,7 @@ def is_word_guessed(secret_word, letters_guessed):
     pass
 
 
-
+#listo!
 def get_guessed_word(secret_word, letters_guessed):
     '''
     secret_word: string, the word the user is guessing
@@ -81,7 +81,14 @@ def get_guessed_word(secret_word, letters_guessed):
     returns: string, comprised of letters, underscores (_), and spaces that represents
       which letters in secret_word have been guessed so far.
     '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
+    letterGuessed=['_ ']*len(secret_word)
+    #print (" ".join(letterGuessed))
+    for lg in letters_guessed:
+        for i in range (len(secret_word)):
+            if lg ==secret_word[i]:
+                letterGuessed[i]=lg
+    sLetterGuessed=" ".join(letterGuessed)
+    return (sLetterGuessed)
     pass
 
 
@@ -213,8 +220,9 @@ if __name__ == "__main__":
     #secret_word = choose_word(wordlist)
 
     #hangman(secret_word)
-    l=['a','b','c']
-    print(is_word_guessed('accb',l))
+    secret_word = 'apple'
+    letters_guessed = ['p', 'i', 'k', 'e', 'r', 'a']
+    print(get_guessed_word(secret_word, letters_guessed) )
 
 ###############
 

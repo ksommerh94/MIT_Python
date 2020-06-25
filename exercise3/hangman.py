@@ -92,7 +92,7 @@ def get_guessed_word(secret_word, letters_guessed):
     pass
 
 
-
+#listo!
 def get_available_letters(letters_guessed):
     '''
     letters_guessed: list (of letters), which letters have been guessed so far

@@ -46,7 +46,7 @@ def choose_word(wordlist):
 
 # Load the list of words into the variable wordlist
 # so that it can be accessed from anywhere in the program
-#wordlist = load_words()
+wordlist = load_words()
 
 #listo!
 def is_word_guessed(secret_word, letters_guessed):
@@ -72,7 +72,6 @@ def is_word_guessed(secret_word, letters_guessed):
     # FILL IN YOUR CODE HERE AND DELETE "pass"
     pass
 
-
 #listo!
 def get_guessed_word(secret_word, letters_guessed):
     '''
@@ -91,7 +90,6 @@ def get_guessed_word(secret_word, letters_guessed):
     return (sLetterGuessed)
     pass
 
-
 #listo!
 def get_available_letters(letters_guessed):
     '''
@@ -108,7 +106,6 @@ def get_available_letters(letters_guessed):
     sabcMissing=" ".join(abcMissing)
     return (sabcMissing)
     pass
-
 
 
 def hangman(secret_word):
@@ -227,17 +224,37 @@ if __name__ == "__main__":
     #secret_word = choose_word(wordlist)
 
     #hangman(secret_word)
-    secret_word = 'apple'
-    letters_guessed = ['e', 'i', 'k', 'p', 'r', 's']
+    secret_word = 'abc'
+    letters_guessed=[]
 
-    #print(is_word_guessed(secret_word, letters_guessed) )
+    print(is_word_guessed(secret_word, letters_guessed) )
     #print(get_guessed_word(secret_word, letters_guessed) )
-    print (get_available_letters(letters_guessed))
+    #print (get_available_letters(letters_guessed))
 
 ###############
 
     # To test part 3 re-comment out the above lines and
     # uncomment the following two lines.
 
-    #secret_word = choose_word(wordlist)
+
     #hangman_with_hints(secret_word)
+    guesses=6
+    while (not is_word_guessed(secret_word, letters_guessed)):
+        print('Loading word list from file...')
+        #secret_word = choose_word(wordlist)
+        print('Welcome to the game Hangman!')
+        print('I am thinking of a word that is '+str(len(secret_word)) + ' letters long.')
+        print('-------------')
+        print('You have 6 guesses left.')
+        print ('Available letters: ',(get_available_letters(letters_guessed)))
+        inputLetter=input("Please guess a letter: ")
+        
+        if guesses==0:
+            break
+        letters_guessed.append('a')
+        letters_guessed.append('b')
+        guesses=0
+        #print(is_word_guessed(secret_word, letters_guessed) )
+
+
+    print ('salio')

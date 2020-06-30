@@ -239,21 +239,31 @@ if __name__ == "__main__":
 
     #hangman_with_hints(secret_word)
     guesses=6
+    warnings=3
+    print('Loading word list from file...')
+    #secret_word = choose_word(wordlist)
+    print('Welcome to the game Hangman!')
+    print('I am thinking of a word that is '+str(len(secret_word)) + ' letters long.')
+    print('-------------')
     while (not is_word_guessed(secret_word, letters_guessed)):
-        print('Loading word list from file...')
-        #secret_word = choose_word(wordlist)
-        print('Welcome to the game Hangman!')
-        print('I am thinking of a word that is '+str(len(secret_word)) + ' letters long.')
-        print('-------------')
-        print('You have 6 guesses left.')
-        print ('Available letters: ',(get_available_letters(letters_guessed)))
-        inputLetter=input("Please guess a letter: ")
-        
+        #cantidad de vidas
         if guesses==0:
             break
-        letters_guessed.append('a')
-        letters_guessed.append('b')
-        guesses=0
+        #Verificacion de warnings
+        if warnings==0:
+            guesses-=1
+        print('You have',str(guesses),'guesses left.')
+        print ('Available letters: ',(get_available_letters(letters_guessed)))
+        #Ingresa la letra que adivina
+        inputLetter=input("Please guess a letter: ")
+        #verificar que la letra sea valida
+        if (inputLetter.isalpha() and len(inputLetter)==1 ):
+            letters_guessed.append(inputLetter.lower())
+        else:
+            warnings-=1
+            print('Oops! That is not a valid letter. You have', str(warnings), 'warnings left:')
+
+        print('-------------')
         #print(is_word_guessed(secret_word, letters_guessed) )
 
 

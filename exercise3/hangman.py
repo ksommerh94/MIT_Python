@@ -135,6 +135,7 @@ def hangman(secret_word):
     Follows the other limitations detailed in the problem write-up.
     '''
     letters_guessed=[]
+    all_vowels='aeiou'
     guesses=6
     warnings=3
     print('Loading word list from file...')
@@ -145,28 +146,39 @@ def hangman(secret_word):
     while (not is_word_guessed(secret_word, letters_guessed)):
         #cantidad de vidas
         if guesses==0:
-            break
+            return True
         #Verificacion de warnings
         if warnings==0:
             guesses-=1
+            warnings=3
         print('You have',str(guesses),'guesses left.')
         print ('Available letters: ',(get_available_letters(letters_guessed)))
         #Ingresa la letra que adivina
         inputLetter=input("Please guess a letter: ")
+        #verificar que la letra no se haya adiviando antes
+        if inputLetter.lower()  not in letters_guessed:
+            #verificar que la letra sea valida
+            if (inputLetter.isalpha() and len(inputLetter)==1 ):
+                letters_guessed.append(inputLetter.lower())
+                #verificar que la letra este en la palabra
+                if inputLetter.lower() not in secret_word:
+                    if inputLetter.lower() not in all_vowels:
+                        guesses-=1
+                    else:
+                        guesses-=2
+                    print ('Oops! That letter is not in my word:',get_guessed_word(secret_word, letters_guessed))
 
-
-        #verificar que la letra sea valida
-        if (inputLetter.isalpha() and len(inputLetter)==1 ):
-            letters_guessed.append(inputLetter.lower())
-            if inputLetter.lower() not in secret_word:
-                print ('Oops! That letter is not in my word:',get_guessed_word(secret_word, letters_guessed))
+                else:
+                    print ('Good guess:',get_guessed_word(secret_word, letters_guessed))
             else:
-                print(get_guessed_word(secret_word, letters_guessed))
+                warnings-=1
+                print('Oops! That is not a valid letter. You have', str(warnings), 'warnings left:',get_guessed_word(secret_word, letters_guessed))
         else:
             warnings-=1
-            print('Oops! That is not a valid letter. You have', str(warnings), 'warnings left:',get_guessed_word(secret_word, letters_guessed))
+            print('Oops! You have already guessed that letter. You now have', str(warnings), 'warnings left:',get_guessed_word(secret_word, letters_guessed))
 
         print('-------------')
+    return True
 
 
 

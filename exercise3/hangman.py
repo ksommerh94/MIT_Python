@@ -107,7 +107,12 @@ def get_available_letters(letters_guessed):
     return (sabcMissing)
     pass
 
-
+def unique_letters(secret_word):
+    unique = []
+    for char in secret_word:
+        if char not in unique:
+            unique.append(char)
+    return(len(unique))
 
 def hangman(secret_word):
     '''
@@ -142,24 +147,25 @@ def hangman(secret_word):
     #secret_word = choose_word(wordlist)
     print('Welcome to the game Hangman!')
     print('I am thinking of a word that is '+str(len(secret_word)) + ' letters long.')
+    print('You have '+str(warnings) + ' warnings left.')
     print('-------------')
     while (not is_word_guessed(secret_word, letters_guessed)):
         #cantidad de vidas
         if guesses==0:
-            return True
+            print('Sorry, you ran out of guesses. The word was :',secret_word)
+            return False
         #Verificacion de warnings
-        if warnings==0:
-            guesses-=1
-            warnings=3
         print('You have',str(guesses),'guesses left.')
         print ('Available letters: ',(get_available_letters(letters_guessed)))
         #Ingresa la letra que adivina
         inputLetter=input("Please guess a letter: ")
+
+
         #verificar que la letra no se haya adiviando antes
         if inputLetter.lower()  not in letters_guessed:
             #verificar que la letra sea valida
+            letters_guessed.append(inputLetter.lower())
             if (inputLetter.isalpha() and len(inputLetter)==1 ):
-                letters_guessed.append(inputLetter.lower())
                 #verificar que la letra este en la palabra
                 if inputLetter.lower() not in secret_word:
                     if inputLetter.lower() not in all_vowels:
@@ -172,12 +178,23 @@ def hangman(secret_word):
                     print ('Good guess:',get_guessed_word(secret_word, letters_guessed))
             else:
                 warnings-=1
-                print('Oops! That is not a valid letter. You have', str(warnings), 'warnings left:',get_guessed_word(secret_word, letters_guessed))
+                print('Oops! That is not a valid letter. You have', str(warnings), 'warnings left:', get_guessed_word(secret_word, letters_guessed))
         else:
             warnings-=1
-            print('Oops! You have already guessed that letter. You now have', str(warnings), 'warnings left:',get_guessed_word(secret_word, letters_guessed))
+            if warnings<0:
+                print ('Oops! You have already guessed that letter. You have no warnings left so you lose one guess:',get_guessed_word(secret_word, letters_guessed) )
+            else:
+                print ('Oops! You have already guessed that letter. You have', str(warnings), 'warnings left:')
+                print(get_guessed_word(secret_word, letters_guessed))
+
+        if warnings<0 :
+            guesses-=1
+            warnings=3
 
         print('-------------')
+    total_score=guesses*int(unique_letters(secret_word.lower()))
+    print('Congratulations, you won!')
+    print('Your total score for this game is: ', str(total_score))
     return True
 
 
@@ -267,13 +284,11 @@ if __name__ == "__main__":
 
     #secret_word = choose_word(wordlist)
 
-    #hangman(secret_word)
-    secret_word = 'abc'
+    secret_word = 'secret'
 
-
-    #print(get_guessed_word(secret_word, letters_guessed) )
-    #print (get_available_letters(letters_guessed))
     hangman(secret_word)
+
+
 ###############
 
     # To test part 3 re-comment out the above lines and
@@ -283,6 +298,3 @@ if __name__ == "__main__":
     #hangman_with_hints(secret_word)
 
         #print(is_word_guessed(secret_word, letters_guessed) )
-
-
-    print ('salio')

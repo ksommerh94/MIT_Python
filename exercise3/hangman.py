@@ -218,8 +218,29 @@ def match_with_gaps(my_word, other_word):
         _ , and my_word and other_word are of the same length;
         False otherwise:
     '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    check=[]
+    check_flag=[]
+    my_word=my_word.replace(" ", "")
+    print (len(my_word))
+    if len(my_word)==len(other_word):
+        for i in range (len(secret_word)):
+            if other_word[i] not in check:
+                check.append(other_word[i])
+                if my_word[i]==other_word[i]:
+                    check_flag.append(1)
+                elif my_word[i]=='_':
+                    check_flag.append(0)
+                else:
+                    return False
+            elif check_flag[check.index(other_word[i])]==0 and my_word[i]!='_':
+                return False
+            elif check_flag[check.index(other_word[i])]==1:
+                return False
+        return True
+
+    else:
+        return False
+
 
 
 
@@ -284,9 +305,10 @@ if __name__ == "__main__":
 
     #secret_word = choose_word(wordlist)
 
-    secret_word = 'secret'
-
-    hangman(secret_word)
+    secret_word = 'apple'
+    a='kp_ le'
+    print(match_with_gaps(a,secret_word))
+    #hangman(secret_word)
 
 
 ###############

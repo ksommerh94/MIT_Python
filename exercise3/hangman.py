@@ -221,7 +221,6 @@ def match_with_gaps(my_word, other_word):
     check=[]
     check_flag=[]
     my_word=my_word.replace(" ", "")
-    print (len(my_word))
     if len(my_word)==len(other_word):
         for i in range (len(secret_word)):
             if other_word[i] not in check:
@@ -254,8 +253,14 @@ def show_possible_matches(my_word):
              that has already been revealed.
 
     '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    my_word=my_word.replace(" ", "")
+    for wl in wordlist:
+        if len(wl)==len(my_word):
+
+
+        else:
+            return False
+
 
 
 

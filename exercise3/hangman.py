@@ -254,12 +254,21 @@ def show_possible_matches(my_word):
 
     '''
     my_word=my_word.replace(" ", "")
+    possible_list=[]
     for wl in wordlist:
         if len(wl)==len(my_word):
+            possible_list_check=[]
+            for i in range (len(my_word)):
+                if my_word[i] == wl[i]:
+                    possible_list_check.append(1)
+                elif my_word[i]=='_' :
+                    possible_list_check.append(1)
+            if len(possible_list_check)==len(my_word):
+                if(match_with_gaps(my_word, wl)):
+                    possible_list.append(wl)
 
+    return possible_list
 
-        else:
-            return False
 
 
 
@@ -291,8 +300,70 @@ def hangman_with_hints(secret_word):
 
     Follows the other limitations detailed in the problem write-up.
     '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    letters_guessed=[]
+    all_vowels='aeiou'
+    guesses=6
+    warnings=3
+    my_word='_ '*len(secret_word)
+    print('Loading word list from file...')
+    #secret_word = choose_word(wordlist)
+    print('Welcome to the game Hangman!')
+    print('I am thinking of a word that is '+str(len(secret_word)) + ' letters long.')
+    print('You have '+str(warnings) + ' warnings left.')
+    print('-------------')
+    while (not is_word_guessed(secret_word, letters_guessed)):
+        #cantidad de vidas
+        if guesses==0:
+            print('Sorry, you ran out of guesses. The word was :',secret_word)
+            return False
+        #Verificacion de warnings
+        print('You have',str(guesses),'guesses left.')
+        print ('Available letters: ',(get_available_letters(letters_guessed)))
+        #Ingresa la letra que adivina
+        inputLetter=input("Please guess a letter: ")
+
+
+        #verificar que la letra no se haya adiviando antes
+        if inputLetter=='*' and len(my_word)>0:
+            print ('Possible word matches are:')
+            print(show_possible_matches(my_word))
+        elif inputLetter.lower()  not in letters_guessed and inputLetter!='*':
+            #verificar que la letra sea valida
+            letters_guessed.append(inputLetter.lower())
+            if (inputLetter.isalpha() and len(inputLetter)==1  ):
+                #verificar que la letra este en la palabra
+                if inputLetter.lower() not in secret_word:
+                    if inputLetter.lower() not in all_vowels:
+                        guesses-=1
+                    else:
+                        guesses-=2
+                    print ('Oops! That letter is not in my word:',get_guessed_word(secret_word, letters_guessed))
+
+                else:
+                    my_word=get_guessed_word(secret_word, letters_guessed)
+                    print ('Good guess:',get_guessed_word(secret_word, letters_guessed))
+            else:
+                warnings-=1
+                print('Oops! That is not a valid letter. You have', str(warnings), 'warnings left:', get_guessed_word(secret_word, letters_guessed))
+
+
+        else:
+            warnings-=1
+            if warnings<0:
+                print ('Oops! You have already guessed that letter. You have no warnings left so you lose one guess:',get_guessed_word(secret_word, letters_guessed) )
+            else:
+                print ('Oops! You have already guessed that letter. You have', str(warnings), 'warnings left:')
+                print(get_guessed_word(secret_word, letters_guessed))
+
+        if warnings<0 :
+            guesses-=1
+            warnings=3
+
+        print('-------------')
+    total_score=guesses*int(unique_letters(secret_word.lower()))
+    print('Congratulations, you won!')
+    print('Your total score for this game is: ', str(total_score))
+    return True
 
 
 
@@ -309,11 +380,16 @@ if __name__ == "__main__":
     # uncomment the following two lines.
 
     #secret_word = choose_word(wordlist)
-
-    secret_word = 'apple'
-    a='kp_ le'
-    print(match_with_gaps(a,secret_word))
     #hangman(secret_word)
+
+    #print(match_with_gaps(a,secret_word))
+
+
+    secret_word = choose_word(wordlist)
+    hangman_with_hints(secret_word)
+    #print(show_possible_matches(a))
+
+
 
 
 ###############

@@ -35,11 +35,8 @@ def get_permutations(sequence):
             for x in sequence:
                 if x != i:
                     rest_elements.append(x)
-                    #print(x)
-            #print (rest_elements)
             #call the same function with the rest of elements
             pemutations_recursive = get_permutations(rest_elements)
-            print (pemutations_recursive)
             #concatenate the letter of the upper loop with the one receive in the permutation
             for t in pemutations_recursive:
                 list_permutations.append(i + t)

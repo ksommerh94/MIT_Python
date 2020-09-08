@@ -73,7 +73,6 @@ class Message(object):
         self.message_text=text
         self.valid_words=load_words(WORDLIST_FILENAME)
 
-
     def get_message_text(self):
         '''
         Used to safely access self.message_text outside of the class

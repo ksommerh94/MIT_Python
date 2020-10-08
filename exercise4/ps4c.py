@@ -179,6 +179,21 @@ class SubMessage(object):
                 string_encrypted+=mt
         return (string_encrypted)
 
+    def apply_transpose_with_text(self,text,transpose_dict):
+        '''
+        transpose_dict (dict): a transpose dictionary
+
+        Returns: an encrypted version of the message text, based
+        on the dictionary
+        '''
+        string_encrypted=""
+        for mt in text:
+            if mt in transpose_dict:
+                string_encrypted+=transpose_dict[mt]
+            else:
+                string_encrypted+=mt
+        return (string_encrypted)
+
 
 
 class EncryptedSubMessage(SubMessage):
@@ -213,22 +228,30 @@ class EncryptedSubMessage(SubMessage):
 
         Hint: use your function from Part 4A
         '''
-        print("aaaaaaaaaaa")
-        #word_list_splited = self.message_text.split(" !@#$%^&*()-_+={}[]|\:;'<>?,./\"")
         permuted_vowels=get_permutations("aeiou")
         final_string=""
-        for pv in permuted_vowels:
-            dic_transpose=self.build_transpose_dict(pv)
-            #print(dic_transpose)
-            string_transpose=self.apply_transpose(dic_transpose)
-            splits = string_transpose.split()
-            for s in splits:
-                print(is_word(self.valid_words, 'hello'))
 
-                if is_word(self.valid_words, s):
-                    final_string+=string_transpose
-                    final_string+=" "
-        #print(final_string)
+        text_splitted=self.text.split()
+
+        for tx in text_splitted:
+            flag=0
+            for pv in permuted_vowels:
+                dic_transpose=self.build_transpose_dict(pv)
+                string_transpose=self.apply_transpose_with_text(tx,dic_transpose)
+                # print(string_transpose)
+                # splits = string_transpose.split()
+                # for s in splits:
+                #     #print(is_word(self.valid_words, 'hello'))
+                if is_word(self.valid_words, string_transpose):
+                    if string_transpose not in final_string:
+                        final_string+=string_transpose
+                        final_string+=" "
+                        flag=1
+            if flag==0:
+                final_string+=tx
+                
+
+        return(final_string)
 
 
         #return (final_string)

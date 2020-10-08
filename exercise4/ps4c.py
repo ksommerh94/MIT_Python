@@ -255,9 +255,6 @@ class EncryptedSubMessage(SubMessage):
         return(final_string)
 
 
-
-
-
 if __name__ == '__main__':
 
     # Example test case

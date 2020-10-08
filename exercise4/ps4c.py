@@ -233,29 +233,26 @@ class EncryptedSubMessage(SubMessage):
 
         text_splitted=self.text.split()
 
+        # start with tha initial text
         for tx in text_splitted:
+            #for knowing which word has been convert , if has
             flag=0
+            #go trough all the vowels permutation
             for pv in permuted_vowels:
+                #get dictionary for each permutation made
                 dic_transpose=self.build_transpose_dict(pv)
+                #apply the dictionary in a new method I created where received the text
                 string_transpose=self.apply_transpose_with_text(tx,dic_transpose)
-                # print(string_transpose)
-                # splits = string_transpose.split()
-                # for s in splits:
-                #     #print(is_word(self.valid_words, 'hello'))
+                #check if is a valid word in he text
                 if is_word(self.valid_words, string_transpose):
+                    #for avoiding duplicate values
                     if string_transpose not in final_string:
                         final_string+=string_transpose
                         final_string+=" "
                         flag=1
             if flag==0:
                 final_string+=tx
-                
-
         return(final_string)
-
-
-        #return (final_string)
-
 
 
 
